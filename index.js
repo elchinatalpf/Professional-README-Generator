@@ -5,7 +5,7 @@ const generateMarkdown = require('./utils/generateMarkdown');
 
 // title, description, installation, usage info, contribution guidelines, test instructions
 // TODO: Create an array of questions for user input
-const questions = [
+const questions = () => inquirer.prompt ([
   {
     type: 'input',
     name: 'title',
@@ -29,6 +29,7 @@ const questions = [
   {
     type: 'input',
     name: 'usage',
+// usage could be the link with the video/gif explanation of the project.
     message: 'Provide usage information:'
   },
   {
@@ -63,7 +64,12 @@ const questions = [
     name: 'Author',
     message: 'What is your name?'
   },
-];
+]);
+questions().then((answers) => {
+  const generate = generateMarkdown(answers);
+  fs.writeFileSync('README.md', generate);
+}).then(() => console.log('Testing is Sucess!')
+.catch(err => console.log(err)));
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {}

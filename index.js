@@ -1,27 +1,69 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
+const generateMarkdown = require('./utils/generateMarkdown');
 
-
+// title, description, installation, usage info, contribution guidelines, test instructions
 // TODO: Create an array of questions for user input
-const questions = () => inquirer.Prompt([
+const questions = [
   {
     type: 'input',
-    name: 'name',
+    name: 'title',
     message: 'what is the title of your project?'
   },
   {
     type: 'input',
-    name: 'description',
-    message: 'Describe the purpuso of your project:',
+    name: 'confirm',
+    message: 'Describe the purpose of your project:',
+  },
+  {
+    type: 'input',
+    name: 'tableContent',
+    message: 'Would you like to add a table of contents?'
+  },
+  {
+    type: 'installations',
+    name: 'input',
+    message: 'Provide an instalation for the project:'
+  },
+  {
+    type: 'input',
+    name: 'usage',
+    message: 'Provide usage information:'
+  },
+  {
+    type: 'input',
+    mame: 'confirm',
+    message: 'Would you like to add contributors?'
+  },
+  {
+    type: 'input',
+    name: 'tes',
+    message: 'What would be the testing process for this project?'
   },
   {
     type: 'checkbox',
     name: 'stack',
     message: 'Select a license for your project:',
-    choices: ['MIT', 'ISC', 'JavaScript', 'Spanish'],
+    // I think here should be the license from generateMarkdown.js
+    choices: ['MIT', 'ISC', 'GPLv2', 'Apache2.0', 'GPLv3', 'BSD 3-clause', 'none']
   },
-]);
+  {
+    type: 'input',
+    name: 'github',
+    message: 'What is your GitHub username?'
+  },
+  {
+    type: 'input',
+    name: 'email',
+    message: 'What is your email account?'
+  },
+  {
+    type: 'input',
+    name: 'Author',
+    message: 'What is your name?'
+  },
+];
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {}
@@ -31,6 +73,9 @@ function init() {}
 
 // Function call to initialize app
 init();
+
+// to use later probably with choices:
+// const outputCyanText = (text) => console.log(`\x1b[36m${text}\x1b[0m`);
 
 
 // .gitignore: done

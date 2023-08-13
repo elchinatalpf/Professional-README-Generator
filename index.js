@@ -34,7 +34,7 @@ const questions = () => inquirer.prompt ([
   },
   {
     type: 'input',
-    mame: 'confirm',
+    name: 'confirm',
     message: 'Would you like to add contributors?'
   },
   {
@@ -68,8 +68,8 @@ const questions = () => inquirer.prompt ([
 questions().then((answers) => {
   const generate = generateMarkdown(answers);
   fs.writeFileSync('README.md', generate);
-}).then(() => console.log('Testing is Sucess!')
-.catch(err => console.log(err)));
+}).then(() => console.log('Testing is Sucess!'))
+.catch(err => console.log(err));
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {}

@@ -65,31 +65,25 @@ const questions = () => inquirer.prompt ([
     message: 'What is your name?'
   },
 ]);
-questions().then((answers) => {
-  const generate = generateMarkdown(answers);
-  fs.writeFileSync('README.md', generate);
-}).then(() => console.log('Testing is Sucess!'))
-.catch(err => console.log(err));
+// .then(() => console.log('Testing is Sucess!'))
+// .catch(err => console.log(err));
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
+  
+  questions().then((answers) => {
+    const generate = generateMarkdown(answers);
+    fs.writeFileSync('README.md', generate);
+  });
 
 }
 
 // TODO: Create a function to initialize app
-function init() {}
+function init() {
+  writeToFile();
+}
 
 // Function call to initialize app
 init();
-
 // to use later probably with choices:
 // const outputCyanText = (text) => console.log(`\x1b[36m${text}\x1b[0m`);
-
-
-// .gitignore: done
-// npm init and i inquirer@8.2.4: done
-// app video and others screen shots:
-
-// What is the title of your project?
-// Describe the purpose of your project:
-// Select a license for your project: (apache, boots, bsd, 

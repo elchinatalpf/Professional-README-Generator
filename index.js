@@ -5,7 +5,7 @@ const generateMarkdown = require('./utils/generateMarkdown');
 
 // title, description, installation, usage info, contribution guidelines, test instructions
 // TODO: Create an array of questions for user input
-const questions = [
+const questions = () => inquirer.prompt ([
   {
     type: 'input',
     name: 'title',
@@ -29,11 +29,12 @@ const questions = [
   {
     type: 'input',
     name: 'usage',
+// usage could be the link with the video/gif explanation of the project.
     message: 'Provide usage information:'
   },
   {
     type: 'input',
-    mame: 'confirm',
+    name: 'confirm',
     message: 'Would you like to add contributors?'
   },
   {
@@ -63,25 +64,26 @@ const questions = [
     name: 'Author',
     message: 'What is your name?'
   },
-];
+]);
+// .then(() => console.log('Testing is Sucess!'))
+// .catch(err => console.log(err));
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+function writeToFile(fileName, data) {
+  
+  questions().then((answers) => {
+    const generate = generateMarkdown(answers);
+    fs.writeFileSync('README.md', generate);
+  });
+
+}
 
 // TODO: Create a function to initialize app
-function init() {}
+function init() {
+  writeToFile();
+}
 
 // Function call to initialize app
 init();
-
 // to use later probably with choices:
 // const outputCyanText = (text) => console.log(`\x1b[36m${text}\x1b[0m`);
-
-
-// .gitignore: done
-// npm init and i inquirer@8.2.4: done
-// app video and others screen shots:
-
-// What is the title of your project?
-// Describe the purpose of your project:
-// Select a license for your project: (apache, boots, bsd, 

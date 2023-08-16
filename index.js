@@ -50,7 +50,7 @@ const questions = () => inquirer.prompt ([
     message: 'What would be the testing process for this project?'
   },
   {
-    type: 'checkbox',
+    type: 'list',
     name: 'license',
     message: 'Select a license for your project:',
     choices: ['MIT', 'ISC', 'GPLv2', 'Apache2.0', 'GPLv3', 'BSD 3-clause', 'none']
@@ -66,15 +66,12 @@ const questions = () => inquirer.prompt ([
     message: 'What is your email account?'
   },
 ]);
-// .then(() => console.log('Testing is Sucess!'))
-// .catch(err => console.log(err));
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
   
   questions().then((answers) => {
-    const userLicenses = renderLicenseBadge(answers.badgeLink);
-    const generate = generateMarkdown( { ...answers, userLicenses });
+    const generate = generateMarkdown(answers);
     fs.writeFileSync('README.md', generate);
   });
 
@@ -82,12 +79,8 @@ function writeToFile(fileName, data) {
 
 // TODO: Create a function to initialize app
 function init() {
- try {
-   writeToFile();
-  console.log('Congrats on creating your first README with Node.js');
- } catch(err) {
-  console.log(err);
- }
+  writeToFile();
+ 
 }
 
 // Function call to initialize app

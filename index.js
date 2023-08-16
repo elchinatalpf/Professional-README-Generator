@@ -17,8 +17,8 @@ const questions = () => inquirer.prompt ([
     message: 'Describe the purpose of your project:',
   },
   {
-    type: 'input',
-    name: 'tableContent',
+    type: 'confirm',
+    name: 'addTableOfContents',
     message: 'Would you like to add a table of contents?'
   },
   {
@@ -32,9 +32,17 @@ const questions = () => inquirer.prompt ([
     message: 'Provide usage information:'
   },
   {
+    type: 'confirm',
+    name: 'addContributors',
+    message: 'Would you like to add contributors?',
+  },
+  {
+    when: function (answers) {
+      return answers.addContributors;
+    },
     type: 'input',
     name: 'contributors',
-    message: 'Would you like to add contributors?'
+    message: 'How can others contribute to the project?'
   },
   {
     type: 'input',
@@ -43,9 +51,8 @@ const questions = () => inquirer.prompt ([
   },
   {
     type: 'checkbox',
-    name: 'licenses',
+    name: 'license',
     message: 'Select a license for your project:',
-    // I think here should be the license from generateMarkdown.js
     choices: ['MIT', 'ISC', 'GPLv2', 'Apache2.0', 'GPLv3', 'BSD 3-clause', 'none']
   },
   {
@@ -66,7 +73,7 @@ const questions = () => inquirer.prompt ([
 function writeToFile(fileName, data) {
   
   questions().then((answers) => {
-    const userLicenses = renderLicenseBadge(answers.license);
+    const userLicenses = renderLicenseBadge(answers.badgeLink);
     const generate = generateMarkdown( { ...answers, userLicenses });
     fs.writeFileSync('README.md', generate);
   });
@@ -75,10 +82,13 @@ function writeToFile(fileName, data) {
 
 // TODO: Create a function to initialize app
 function init() {
-  writeToFile();
+ try {
+   writeToFile();
+  console.log('Congrats on creating your first README with Node.js');
+ } catch(err) {
+  console.log(err);
+ }
 }
 
 // Function call to initialize app
 init();
-// to use later probably with choices:
-// const outputCyanText = (text) => console.log(`\x1b[36m${text}\x1b[0m`);

@@ -13,7 +13,7 @@ const questions = () => inquirer.prompt ([
   },
   {
     type: 'input',
-    name: 'confirm',
+    name: 'description',
     message: 'Describe the purpose of your project:',
   },
   {
@@ -22,29 +22,28 @@ const questions = () => inquirer.prompt ([
     message: 'Would you like to add a table of contents?'
   },
   {
-    type: 'installations',
-    name: 'input',
-    message: 'Provide an instalation for the project:'
+    type: 'input',
+    name: 'installation',
+    message: 'Provide an installation for the project:'
   },
   {
     type: 'input',
     name: 'usage',
-// usage could be the link with the video/gif explanation of the project.
     message: 'Provide usage information:'
   },
   {
     type: 'input',
-    name: 'confirm',
+    name: 'contributors',
     message: 'Would you like to add contributors?'
   },
   {
     type: 'input',
-    name: 'tes',
+    name: 'test',
     message: 'What would be the testing process for this project?'
   },
   {
     type: 'checkbox',
-    name: 'stack',
+    name: 'licenses',
     message: 'Select a license for your project:',
     // I think here should be the license from generateMarkdown.js
     choices: ['MIT', 'ISC', 'GPLv2', 'Apache2.0', 'GPLv3', 'BSD 3-clause', 'none']
@@ -59,11 +58,6 @@ const questions = () => inquirer.prompt ([
     name: 'email',
     message: 'What is your email account?'
   },
-  {
-    type: 'input',
-    name: 'Author',
-    message: 'What is your name?'
-  },
 ]);
 // .then(() => console.log('Testing is Sucess!'))
 // .catch(err => console.log(err));
@@ -72,7 +66,8 @@ const questions = () => inquirer.prompt ([
 function writeToFile(fileName, data) {
   
   questions().then((answers) => {
-    const generate = generateMarkdown(answers);
+    const userLicenses = renderLicenseBadge(answers.license);
+    const generate = generateMarkdown( { ...answers, userLicenses });
     fs.writeFileSync('README.md', generate);
   });
 

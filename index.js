@@ -13,40 +13,46 @@ const questions = () => inquirer.prompt ([
   },
   {
     type: 'input',
-    name: 'confirm',
+    name: 'description',
     message: 'Describe the purpose of your project:',
   },
   {
-    type: 'input',
-    name: 'tableContent',
+    type: 'confirm',
+    name: 'addTableOfContents',
     message: 'Would you like to add a table of contents?'
   },
   {
-    type: 'installations',
-    name: 'input',
-    message: 'Provide an instalation for the project:'
+    type: 'input',
+    name: 'installation',
+    message: 'Provide an installation for the project:'
   },
   {
     type: 'input',
     name: 'usage',
-// usage could be the link with the video/gif explanation of the project.
     message: 'Provide usage information:'
   },
   {
+    type: 'confirm',
+    name: 'addContributors',
+    message: 'Would you like to add contributors?',
+  },
+  {
+    when: function (answers) {
+      return answers.addContributors;
+    },
     type: 'input',
-    name: 'confirm',
-    message: 'Would you like to add contributors?'
+    name: 'contributors',
+    message: 'How can others contribute to the project?'
   },
   {
     type: 'input',
-    name: 'tes',
+    name: 'test',
     message: 'What would be the testing process for this project?'
   },
   {
-    type: 'checkbox',
-    name: 'stack',
+    type: 'list',
+    name: 'license',
     message: 'Select a license for your project:',
-    // I think here should be the license from generateMarkdown.js
     choices: ['MIT', 'ISC', 'GPLv2', 'Apache2.0', 'GPLv3', 'BSD 3-clause', 'none']
   },
   {
@@ -59,14 +65,7 @@ const questions = () => inquirer.prompt ([
     name: 'email',
     message: 'What is your email account?'
   },
-  {
-    type: 'input',
-    name: 'Author',
-    message: 'What is your name?'
-  },
 ]);
-// .then(() => console.log('Testing is Sucess!'))
-// .catch(err => console.log(err));
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
@@ -81,9 +80,8 @@ function writeToFile(fileName, data) {
 // TODO: Create a function to initialize app
 function init() {
   writeToFile();
+ 
 }
 
 // Function call to initialize app
 init();
-// to use later probably with choices:
-// const outputCyanText = (text) => console.log(`\x1b[36m${text}\x1b[0m`);

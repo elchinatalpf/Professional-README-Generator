@@ -75,7 +75,7 @@ function generateMarkdown(data) {
   Any questions about the project or how to contribute, you can open an issue or contact me here: ${data.github} ${data.email}
   `;
 }
-
+// if the user responds yes to table of contents it will be added to its readme's place.
 function tableOfContents () {
   return `
   ## Table of Content

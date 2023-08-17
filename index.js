@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const generateMarkdown = require('./utils/generateMarkdown');
-
+// questions prompts to customize the readme file
 const questions = () =>
   inquirer.prompt([
     {
@@ -88,15 +88,18 @@ const questions = () =>
       message: "What is your email account?"
     },
   ]);
-
+// readme file it's written here and catch in case or error
 function writeToFile(fileName, data) {
   
   const generate = generateMarkdown(data);
-  fs.writeFileSync(fileName, generate, (err) => {
-    err ? console.log(err) : console.log(`It works! Your ${fileName} file has been generated.`)
-  });
+  try {
+    fs.writeFileSync(fileName, generate);
+    console.log(`Success! Your ${fileName} file has been generated`);
+  } catch (err) {
+    console.log(err);
+  }
 }
-
+// application begins with promtps then answers and write file.
 function init() {
   questions().then((answers) => {
     console.log("Generating README...");

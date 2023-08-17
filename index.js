@@ -1,10 +1,7 @@
-// TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
 const generateMarkdown = require('./utils/generateMarkdown');
-
-// title, description, installation, usage info, contribution guidelines, test instructions
-// TODO: Create an array of questions for user input
+// questions prompts to customize the readme file
 const questions = () =>
   inquirer.prompt([
     {
@@ -34,22 +31,23 @@ const questions = () =>
     {
       type: "confirm",
       name: "addTableOfContents",
-      message: "Would you like to add a table of contents?",
+      message: "Would you like to add a table of contents?"
     },
     {
       type: "input",
       name: "installation",
-      message: "Provide an installation for the project:",
+      message: "Provide dependencies installation for the project:",
+      default: 'npm i'
     },
     {
       type: "input",
       name: "usage",
-      message: "Provide usage information:",
+      message: "Provide usage information:"
     },
     {
       type: "confirm",
       name: "addContributors",
-      message: "Would you like to add contributors?",
+      message: "Would you like to add contributors?"
     },
     {
       when: function (answers) {
@@ -57,12 +55,13 @@ const questions = () =>
       },
       type: "input",
       name: "contributors",
-      message: "How can others contribute to the project?",
+      message: "How can others contribute to the project?"
     },
     {
       type: "input",
       name: "test",
       message: "What would be the testing process for this project?",
+      default: 'npm test'
     },
     {
       type: "list",
@@ -76,35 +75,36 @@ const questions = () =>
         "GPLv3",
         "BSD 3-clause",
         "none",
-      ],
+      ]
     },
     {
       type: "input",
       name: "github",
-      message: "What is your GitHub username?",
+      message: "What is your GitHub username?"
     },
     {
       type: "input",
       name: "email",
-      message: "What is your email account?",
+      message: "What is your email account?"
     },
   ]);
-
-// TODO: Create a function to write README file
+// readme file it's written here and catch in case or error
 function writeToFile(fileName, data) {
   
-  questions().then((answers) => {
-    const generate = generateMarkdown(answers);
-    fs.writeFileSync('README.md', generate);
-  });
-
+  const generate = generateMarkdown(data);
+  try {
+    fs.writeFileSync(fileName, generate);
+    console.log(`Success! Your ${fileName} file has been generated`);
+  } catch (err) {
+    console.log(err);
+  }
 }
-
-// TODO: Create a function to initialize app
+// application begins with promtps then answers and write file.
 function init() {
-  writeToFile();
- 
+  questions().then((answers) => {
+    console.log("Generating README...");
+    writeToFile('README.md', answers);
+  }); 
 }
 
-// Function call to initialize app
 init();

@@ -9,19 +9,19 @@ function renderLicenseBadge(license) {
 // select between licenses to provide the link.
 function renderLicenseLink(license) {
   switch (license) {
-    case "MIT License":
+    case "MIT":
       return `https://opensource.org/license/mit/`;
       break;
-    case "ISC License":
+    case "ISC":
       return `https://opensource.org/license/isc-license-txt/`;
       break;
-    case "GPLv2 License":
+    case "GPLv2":
       return "https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html";
       break;
-    case "Apache2.0 License":
+    case "Apache2.0":
       return "https://opensource.org/license/apache-2-0/";
       break;
-    case "GPLv3 License":
+    case "GPLv3":
       return "https://www.gnu.org/licenses/gpl-3.0";
       break;
     case "BSD 3-clause":
@@ -36,7 +36,7 @@ function renderLicenseSection(license) {
   } else {
     return `## License
 
-    This project is covered under the ${license} license. You can learn more about this license ![here](${renderLicenseLink(license)}).`;
+    This project is covered under the ${license} license. You can learn more about this license [here](${renderLicenseLink(license)}).`;
   }
 }
 // We create the markdown document from the answer's prompts.
